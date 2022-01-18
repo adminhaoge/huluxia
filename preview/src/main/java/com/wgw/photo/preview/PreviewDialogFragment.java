@@ -15,6 +15,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -525,10 +526,10 @@ public class PreviewDialogFragment extends DialogFragment {
             final LinearLayout.LayoutParams dotParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-            
+
             // 未选中小圆点的间距
-            dotParams.rightMargin = Utils.dp2px(context, 12);
-            
+            dotParams.rightMargin = Utils.dp2px(context, 6);
+            dotParams.leftMargin = Utils.dp2px(context, 6);
             // 创建未选中的小圆点
             for (int i = 0; i < sourceSize; i++) {
                 AppCompatImageView iv = new AppCompatImageView(context);
@@ -540,14 +541,13 @@ public class PreviewDialogFragment extends DialogFragment {
                 iv.setLayoutParams(dotParams);
                 mLlDotIndicator.addView(iv);
             }
-            
             mLlDotIndicator.post(() -> {
                 View childAt = mLlDotIndicator.getChildAt(0);
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIvSelectDot.getLayoutParams();
                 // 设置选中小圆点的左边距
                 params.leftMargin = (int) childAt.getX();
                 mIvSelectDot.setLayoutParams(params);
-                float tx = (dotParams.rightMargin * mCurrentPagerIndex + childAt.getWidth() * mCurrentPagerIndex);
+                float tx = ((dotParams.rightMargin + dotParams.leftMargin) * mCurrentPagerIndex + childAt.getWidth() * mCurrentPagerIndex);
                 mIvSelectDot.setTranslationX(tx);
             });
         } else if (sourceSize > 1) {
@@ -589,7 +589,7 @@ public class PreviewDialogFragment extends DialogFragment {
                     params.leftMargin = (int) childAt.getX();
                     mIvSelectDot.setLayoutParams(params);
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) childAt.getLayoutParams();
-                    float tx = (layoutParams.rightMargin * mCurrentPagerIndex + childAt.getWidth() * mCurrentPagerIndex);
+                    float tx = ((layoutParams.rightMargin + layoutParams.leftMargin) * mCurrentPagerIndex + childAt.getWidth() * mCurrentPagerIndex);
                     mIvSelectDot.setTranslationX(tx);
                 }
             });

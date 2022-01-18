@@ -117,22 +117,6 @@ public class PhotoPreview {
         return fragment;
     }
     
-    /**
-     * 创建构建器，链式调用
-     */
-    public static Builder with(@NonNull FragmentActivity activity) {
-        Objects.requireNonNull(activity);
-        return new Builder(activity);
-    }
-    
-    /**
-     * 创建构建器，链式调用
-     */
-    public static Builder with(@NonNull Fragment fragment) {
-        Objects.requireNonNull(fragment);
-        return new Builder(fragment);
-    }
-    
     public PhotoPreview(@NonNull Builder builder) {
         Objects.requireNonNull(builder);
         mFragmentActivity = builder.activity;
@@ -159,180 +143,7 @@ public class PhotoPreview {
         mFragment = fragment;
         mConfig = new Config();
     }
-    
-    /**
-     * 应用其它配置
-     */
-    public void setConfig(Config config) {
-        mConfig.apply(config);
-    }
-    
-    /**
-     * 设置图片加载器
-     */
-    public void setImageLoader(ImageLoader imageLoader) {
-        mConfig.imageLoader = imageLoader;
-    }
-    
-    /**
-     * 设置图片长按监听
-     */
-    public void setLongClickListener(OnLongClickListener listener) {
-        mConfig.onLongClickListener = listener;
-    }
-    
-    /**
-     * 设置预览关闭监听
-     */
-    public void setOnDismissListener(OnDismissListener listener) {
-        mConfig.onDismissListener = listener;
-    }
-    
-    /**
-     * 设置图片数量指示器样式，默认{@link IndicatorType#DOT},如果图片数量超过9，则不论设置何种模式，均为{@link IndicatorType#TEXT}
-     */
-    public void setIndicatorType(@IndicatorType int indicatorType) {
-        mConfig.indicatorType = indicatorType;
-    }
-    
-    /**
-     * 多图预览时，当前预览的图片指示器颜色
-     */
-    public void setSelectIndicatorColor(@ColorInt int color) {
-        mConfig.selectIndicatorColor = color;
-    }
-    
-    /**
-     * 多图预览时，非当前预览的图片指示器颜色
-     */
-    public void setNormalIndicatorColor(@ColorInt int color) {
-        mConfig.normalIndicatorColor = color;
-    }
-    
-    /**
-     * 在调用{@link ImageLoader#onLoadImage(int, Object, ImageView)}时延迟展示loading框的时间，
-     * < 0:不展示，=0:立即显示，>0:延迟给定时间显示，默认延迟100ms显示，如果在此时间内加载完成则不显示，否则显示
-     */
-    public void setDelayShowProgressTime(long delay) {
-        mConfig.delayShowProgressTime = delay;
-    }
-    
-    /**
-     * 设置图片加载框的颜色，API >= 21配置才生效
-     */
-    public void setProgressColor(@ColorInt int progressColor) {
-        mConfig.progressColor = progressColor;
-    }
-    
-    /**
-     * 设置图片加载框Drawable
-     */
-    public void setProgressDrawable(Drawable progressDrawable) {
-        mConfig.progressDrawable = progressDrawable;
-    }
-    
-    /**
-     * 是否全屏预览，如果全屏预览，在某些手机上(特别是异形屏)可能会出全屏非全屏切换顿挫
-     *
-     * @param fullScreen <ul>
-     *                   <li>null:跟随打开预览的Activity是否全屏决定预览界面是否全屏</li>
-     *                   <li>true:全屏预览</li>
-     *                   <li>null:非全屏预览</li>
-     *                   </ul>
-     */
-    public void setFullScreen(Boolean fullScreen) {
-        mConfig.fullScreen = fullScreen;
-    }
-    
-    /**
-     * 设置打开预览界面默认展示位置
-     */
-    public void setDefaultShowPosition(int position) {
-        mConfig.defaultShowPosition = position;
-    }
-    
-    /**
-     * 设置图片地址
-     */
-    public void setSource(@NonNull Object... sources) {
-        Objects.requireNonNull(sources);
-        setSource(Arrays.asList(sources));
-    }
-    
-    /**
-     * 设置图片地址
-     */
-    public void setSource(@NonNull List<?> sources) {
-        Objects.requireNonNull(sources);
-        mConfig.sources = sources;
-    }
-    
-    /**
-     * 设置动画执行时间
-     *
-     * @param duration <ul>
-     *                 <li>null: 使用默认动画时间</li>
-     *                 <li><=0: 不执行动画</li>
-     *                 </ul>
-     */
-    public void setAnimDuration(Long duration) {
-        mConfig.animDuration = duration;
-    }
-    
-    /**
-     * 当{@link #setIndicatorType(int)}为{@link IndicatorType#DOT}时，设置DOT最大数量，
-     * 如果{@link #setSource(List)}或{@link #setSource(Object...)}超出最大值，则采用{@link IndicatorType#TEXT}
-     */
-    public void setMaxIndicatorDot(int maxSize) {
-        mConfig.maxIndicatorDot = maxSize;
-    }
-    
-    /**
-     * 设置缩略图图形变换类型，比如缩列图是圆形或圆角矩形
-     *
-     * @param shapeTransformType 目前仅提供{@link ShapeTransformType#CIRCLE}和{@link ShapeTransformType#ROUND_RECT}
-     */
-    public void setShapeTransformType(@ShapeTransformType int shapeTransformType) {
-        mConfig.shapeTransformType = shapeTransformType;
-    }
-    
-    /**
-     * 仅当{@link #setShapeTransformType(int)}设置为{@link ShapeTransformType#ROUND_RECT}时，此值配置缩略图圆角矩形圆角半径
-     */
-    public void setShapeCornerRadius(int radius) {
-        mConfig.shapeCornerRadius = radius;
-    }
-    
-    /**
-     * 是否展示缩略图蒙层,如果设置为{@code true},则预览动画执行时,缩略图不显示，预览更沉浸
-     *
-     * @param show 是否显示蒙层，默认{@code true}
-     */
-    public void setShowThumbnailViewMask(boolean show) {
-        mConfig.showThumbnailViewMask = show;
-    }
-    
-    /**
-     * 是否在打开预览动画执行开始的时候执行状态栏隐藏/显示操作。如果该值设置为true，
-     * 那么预览动画打开时，由于状态栏退出/进入有动画，可能导致预览动画卡顿(预览动画时间大于状态栏动画时间时发生)。
-     *
-     * @param doOP 是否执行操作，默认{@code false}
-     */
-    public void setOpenAnimStartHideOrShowStatusBar(boolean doOP) {
-        mConfig.openAnimStartHideOrShowStatusBar = doOP;
-    }
-    
-    // /**
-    //  * 是否在关闭预览动画执行开始的时候执行状态栏显示/隐藏操作。如果该值设置为false，
-    //  * 那么预览动画结束后，对于非沉浸式界面，由于要显示/隐藏状态栏，此时会有强烈的顿挫感。
-    //  * 因此设置为{@code false}时，建议采用沉浸式
-    //  *
-    //  * @param doOP 是否执行操作，默认{@code true}
-    //  */
-    // public void setExitAnimStartHideOrShowStatusBar(boolean doOP) {
-    //     mConfig.exitAnimStartHideOrShowStatusBar = doOP;
-    // }
-    
+
     /**
      * 不设置缩略图，预览界面打开关闭将只有从中心缩放动画
      */
@@ -434,18 +245,34 @@ public class PhotoPreview {
             fragment.dismiss(callBack);
         }
     }
+
+    /**
+     * 创建构建器，链式调用
+     */
+    public static Builder with(@NonNull FragmentActivity activity) {
+        Objects.requireNonNull(activity);
+        return new Builder(activity);
+    }
+
+    /**
+     * 创建构建器，链式调用
+     */
+    public static Builder with(@NonNull Fragment fragment) {
+        Objects.requireNonNull(fragment);
+        return new Builder(fragment);
+    }
     
     public static class Builder {
         final FragmentActivity activity;
         final Fragment fragment;
         Config mConfig;
-        
+
         private Builder(FragmentActivity activity) {
             this.activity = activity;
             this.fragment = null;
             mConfig = new Config();
         }
-        
+
         private Builder(Fragment fragment) {
             this.fragment = fragment;
             this.activity = null;
@@ -635,7 +462,174 @@ public class PhotoPreview {
             mConfig.openAnimStartHideOrShowStatusBar = doOP;
             return this;
         }
-        
+
+        //==================================================start
+
+        /**
+         * 应用其它配置
+         */
+        public Builder setConfig(Config config) {
+            mConfig.apply(config);
+            return this;
+        }
+
+        /**
+         * 设置图片加载器
+         */
+        public Builder setImageLoader(ImageLoader imageLoader) {
+            mConfig.imageLoader = imageLoader;
+            return this;
+        }
+
+        /**
+         * 设置图片长按监听
+         */
+        public Builder setLongClickListener(OnLongClickListener listener) {
+            mConfig.onLongClickListener = listener;
+            return this;
+        }
+
+        /**
+         * 设置预览关闭监听
+         */
+        public Builder setOnDismissListener(OnDismissListener listener) {
+            mConfig.onDismissListener = listener;
+            return this;
+        }
+
+        /**
+         * 设置图片数量指示器样式，默认{@link IndicatorType#DOT},如果图片数量超过9，则不论设置何种模式，均为{@link IndicatorType#TEXT}
+         */
+        public Builder setIndicatorType(@IndicatorType int indicatorType) {
+            mConfig.indicatorType = indicatorType;
+            return this;
+        }
+
+        /**
+         * 多图预览时，当前预览的图片指示器颜色
+         */
+        public Builder setSelectIndicatorColor(@ColorInt int color) {
+            mConfig.selectIndicatorColor = color;
+            return this;
+        }
+
+        /**
+         * 多图预览时，非当前预览的图片指示器颜色
+         */
+        public Builder setNormalIndicatorColor(@ColorInt int color) {
+            mConfig.normalIndicatorColor = color;
+            return this;
+        }
+
+        /**
+         * 在调用{@link ImageLoader#onLoadImage(int, Object, ImageView)}时延迟展示loading框的时间，
+         * < 0:不展示，=0:立即显示，>0:延迟给定时间显示，默认延迟100ms显示，如果在此时间内加载完成则不显示，否则显示
+         */
+        public Builder setDelayShowProgressTime(long delay) {
+            mConfig.delayShowProgressTime = delay;
+            return this;
+        }
+
+        /**
+         * 设置图片加载框的颜色，API >= 21配置才生效
+         */
+        public Builder setProgressColor(@ColorInt int progressColor) {
+            mConfig.progressColor = progressColor;
+            return this;
+        }
+
+        /**
+         * 设置图片加载框Drawable
+         */
+        public Builder setProgressDrawable(Drawable progressDrawable) {
+            mConfig.progressDrawable = progressDrawable;
+            return this;
+        }
+
+        /**
+         * 是否全屏预览，如果全屏预览，在某些手机上(特别是异形屏)可能会出全屏非全屏切换顿挫
+         *
+         * @param fullScreen <ul>
+         *                   <li>null:跟随打开预览的Activity是否全屏决定预览界面是否全屏</li>
+         *                   <li>true:全屏预览</li>
+         *                   <li>null:非全屏预览</li>
+         *                   </ul>
+         */
+        public Builder setFullScreen(Boolean fullScreen) {
+            mConfig.fullScreen = fullScreen;
+            return this;
+        }
+
+        /**
+         * 设置打开预览界面默认展示位置
+         */
+        public Builder setDefaultShowPosition(int position) {
+            mConfig.defaultShowPosition = position;
+            return this;
+        }
+
+        /**
+         * 设置动画执行时间
+         *
+         * @param duration <ul>
+         *                 <li>null: 使用默认动画时间</li>
+         *                 <li><=0: 不执行动画</li>
+         *                 </ul>
+         */
+        public Builder setAnimDuration(Long duration) {
+            mConfig.animDuration = duration;
+            return this;
+        }
+
+        /**
+         * 当{@link #setIndicatorType(int)}为{@link IndicatorType#DOT}时，设置DOT最大数量，
+         * 如果{@link #sources(List)}或{@link #sources(Object...)}超出最大值，则采用{@link IndicatorType#TEXT}
+         */
+        public Builder setMaxIndicatorDot(int maxSize) {
+            mConfig.maxIndicatorDot = maxSize;
+            return this;
+        }
+
+        /**
+         * 设置缩略图图形变换类型，比如缩列图是圆形或圆角矩形
+         *
+         * @param shapeTransformType 目前仅提供{@link ShapeTransformType#CIRCLE}和{@link ShapeTransformType#ROUND_RECT}
+         */
+        public Builder setShapeTransformType(@ShapeTransformType int shapeTransformType) {
+            mConfig.shapeTransformType = shapeTransformType;
+            return this;
+        }
+
+        /**
+         * 仅当{@link #setShapeTransformType(int)}设置为{@link ShapeTransformType#ROUND_RECT}时，此值配置缩略图圆角矩形圆角半径
+         */
+        public Builder setShapeCornerRadius(int radius) {
+            mConfig.shapeCornerRadius = radius;
+            return this;
+        }
+
+        /**
+         * 是否展示缩略图蒙层,如果设置为{@code true},则预览动画执行时,缩略图不显示，预览更沉浸
+         *
+         * @param show 是否显示蒙层，默认{@code true}
+         */
+        public Builder setShowThumbnailViewMask(boolean show) {
+            mConfig.showThumbnailViewMask = show;
+            return this;
+        }
+
+        /**
+         * 是否在打开预览动画执行开始的时候执行状态栏隐藏/显示操作。如果该值设置为true，
+         * 那么预览动画打开时，由于状态栏退出/进入有动画，可能导致预览动画卡顿(预览动画时间大于状态栏动画时间时发生)。
+         *
+         * @param doOP 是否执行操作，默认{@code false}
+         */
+        public Builder setOpenAnimStartHideOrShowStatusBar(boolean doOP) {
+            mConfig.openAnimStartHideOrShowStatusBar = doOP;
+            return this;
+        }
+
+
         // /**
         //  * 是否在关闭预览动画执行开始的时候执行状态栏显示/隐藏操作。如果该值设置为false，
         //  * 那么预览动画结束后，对于非沉浸式界面，由于要显示/隐藏状态栏，此时会有强烈的顿挫感。
@@ -647,6 +641,20 @@ public class PhotoPreview {
         //     mConfig.exitAnimStartHideOrShowStatusBar = doOP;
         //     return this;
         // }
+
+        // /**
+        //  * 是否在关闭预览动画执行开始的时候执行状态栏显示/隐藏操作。如果该值设置为false，
+        //  * 那么预览动画结束后，对于非沉浸式界面，由于要显示/隐藏状态栏，此时会有强烈的顿挫感。
+        //  * 因此设置为{@code false}时，建议采用沉浸式
+        //  *
+        //  * @param doOP 是否执行操作，默认{@code true}
+        //  */
+        // public void setExitAnimStartHideOrShowStatusBar(boolean doOP) {
+        //     mConfig.exitAnimStartHideOrShowStatusBar = doOP;
+        // }
+
+        //===================================================end
+
         
         public PhotoPreview build() {
             return new PhotoPreview(this);

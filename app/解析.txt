@@ -1,0 +1,6 @@
+PhotoPreview.class
+主要作用:
+
+配置Config的所有参数值 （建造者模式）
+
+为PreviewDialogFragment预览界面根布局初始化参数 （所有查看大图都是属于该类）

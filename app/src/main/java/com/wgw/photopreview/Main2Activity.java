@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView.ScaleType;
 
 import com.bumptech.glide.Glide;
+import com.wgw.photo.preview.Config;
 import com.wgw.photo.preview.IndicatorType;
 import com.wgw.photo.preview.PhotoPreview;
 import com.wgw.photo.preview.ShapeTransformType;
@@ -12,6 +13,7 @@ import com.wgw.photo.preview.ShapeTransformType;
 import java.util.Arrays;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,11 +38,11 @@ public class Main2Activity extends AppCompatActivity {
                 .normalIndicatorColor(0xff3954A0)
                 .delayShowProgressTime(200)
                 .shapeTransformType(ShapeTransformType.CIRCLE)
-                .imageLoader((position1, url, imageView1) ->
-                    Glide.with(Main2Activity.this)
-                        .load(((String) url))
-                        // .override(Target.SIZE_ORIGINAL)
-                        .into(imageView1))
+//                .imageLoader((position1, url, imageView1) ->
+//                    Glide.with(Main2Activity.this)
+//                        .load(((String) url))
+//                        // .override(Target.SIZE_ORIGINAL)
+//                        .into(imageView1))
                 .sources(Arrays.asList(MainActivity.picDataMore))
                 .defaultShowPosition(position)
                 .animDuration(350L)
@@ -62,11 +64,11 @@ public class Main2Activity extends AppCompatActivity {
                 .delayShowProgressTime(200)
                 // .shapeTransformType(ShapeTransformType.ROUND_RECT)
                 // .shapeCornerRadius(100)
-                .imageLoader((position1, url, imageView1) ->
-                    Glide.with(Main2Activity.this)
-                        .load(((String) url))
-                        // .override(Target.SIZE_ORIGINAL)
-                        .into(imageView1))
+//                .imageLoader((position1, url, imageView1) ->
+//                    Glide.with(Main2Activity.this)
+//                        .load(((String) url))
+//                        // .override(Target.SIZE_ORIGINAL)
+//                        .into(imageView1))
                 .sources(Arrays.asList(MainActivity.picDataMore))
                 .defaultShowPosition(position)
                 .animDuration(350L)
